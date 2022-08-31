@@ -1,6 +1,12 @@
 <?php 
 
+/**
+ * Class Router
+ * 
+ */
+
 class Router{
+
     protected $routes = [];
     protected $params = [];
 
@@ -23,7 +29,6 @@ class Router{
     }
 
     public function match($url){
-
         foreach ($this->routes as $route => $params) {
             if(preg_match($route, $url, $matches)){
                 foreach ($matches as $key => $match) {
@@ -36,24 +41,42 @@ class Router{
             }
         }
         return false;
-
-        // $regular_expression = "/^(?P<controller>[a-z-]+)\/(?P<index>[a-z-]+)$/";
-
-        // if (preg_match($regular_expression, $url, $matches)) {
-        //     $params = [];
-
-        //     foreach ($matches as $key => $match) {
-        //         if(is_string($key)){
-        //             $params[$key] = $match;
-        //         }
-        //     }
-        //     $this->params = $params;
-        //     return true;
-        // }
     }
 
     public function getParams(){
         return $this->params;
+    }
+
+    public function dispatch($url){
+        if ($this->match($url)) {
+            $controller = $this->params['controller'];
+            $controller = $this->convertToStudlyCaps($controller);
+
+            if (class_exists($controller)) {
+                $controller_object = new $controller();
+
+                $action = $this->params['action'];
+                $action = $this->convertToCameoCase($action);
+
+                if (is_callable([$controller_object, $action])) {
+                    $controller_object->$action();
+                }else{
+                    echo "Method $action (in controller $controller) not found...";
+                }
+            }else{
+                echo "Controller class $controller not found...";
+            }
+        }else{
+            echo "No route matched...";
+        }
+    }
+
+    protected function convertToStudlyCaps($string){
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
+    }
+
+    protected function convertToCameoCase($string){
+        return lcfirst($this->convertToStudlyCaps($string));
     }
 }
 
