@@ -2,8 +2,10 @@
     /**
      * Posts controller
      */
+    namespace App\Controllers;
 
-    class Posts{
+    class Posts extends \Core\Controller
+    {
 
         /**
          * Show the index page
@@ -12,6 +14,7 @@
          */
         public function index(){
             echo "Hello from the index action in the Posts controller!!!";
+            echo "<p>Query string parameters: <pre>".htmlspecialchars(print_r($_GET, true))."</pre></p>";
         }
 
         /**
@@ -21,6 +24,17 @@
          */
         public function addNew(){
             echo "Hello from the addNew action in the Posts controller!!!";
+        }
+
+        /**
+         *  Show the edit page
+         * 
+         * @return void
+         */
+        public function edit(){
+            echo "<p>Hello from the edit action in the Posts controller</p>";
+            // echo "<p>Route parameters: <pre>".htmlspecialchars(print_r($this->param_routes, true))."</pre></p>";
+            echo "<p>Route parameters: <pre>".print_r($this->param_routes, true)."</pre></p>";
         }
     }
 
