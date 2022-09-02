@@ -1,8 +1,4 @@
-<?php 
-
-   // require('../App/Controllers/Posts.php'); 
-   // require('../App/Controllers/Home.php'); 
-   // require('../Core/Router.php');
+<?php
 
    // Autoload controllers.
    spl_autoload_register(function($class){
@@ -19,11 +15,9 @@
    $routes = new Router;
 
    $routes->add("", ["controller"=>'home', "action"=>'index']);
-   $routes->add("post", ["controller"=>'post', "action"=>'show']);
    $routes->add("{controller}/{action}");
    $routes->add("{controller}/{id:\d+}/{action}");
-   $routes->add("{controller}/{action}/{test}", ['tests' => 23]);
-   $routes->add('admin/{action}/{controller}');
+   $routes->add("admin/{controller}/{action}", ["namespace" => "Admin"]);
 
    $routes->dispatch($url);
   
