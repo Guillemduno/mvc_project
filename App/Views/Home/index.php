@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello from Home!</h1>
+    <h1>Hello <?=$name?> from Home!</h1>
+    <p>Your favourite colours are:</p>
+    <ul>
+    <?php 
+        foreach ($colours as $key => $value) {
+            echo "<li>".htmlspecialchars($value)."</li>";
+        }
+    ?>
+    </ul>
+   
 </body>
 </html>

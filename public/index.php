@@ -1,5 +1,7 @@
 <?php
 
+   require_once dirname(__DIR__) . '/vendor/autoload.php';
+
    // Autoload controllers.
    spl_autoload_register(function($class){
       $root = dirname(__DIR__);
