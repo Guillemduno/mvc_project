@@ -7,7 +7,8 @@ namespace App\Models;
 use PDO;
 use PDOException;
 
- class Post{
+ class Post extends \Core\Model
+ {
     /**
      * Get all the post as an associative array
      * 
@@ -16,14 +17,8 @@ use PDOException;
 
      public static function getAll(){
 
-        $host = "localhost";
-        $dbname = "mvc";
-        $user = "root";
-        $password = "";
-
-
         try {
-            $db = new PDO("mysql:host=$host; dbname=$dbname;charset=utf8", $user, $password);
+            $db = static::getDB();
 
             $stmt = $db->query('SELECT id, title, content from posts
                                 order by created_at');

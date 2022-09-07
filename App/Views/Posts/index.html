@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <h1>Hello {{name}} from Home!</h1>
-    <p>Your favourite colours are:</p>
+    <h1>Posts</h1>
+
     <ul>
-    {% for colour in colours %} 
-        <li>{{colour}}</li>
+    {% for post in posts %} 
+        <h2>{{post.title}}</h2>
+        <p>{{post.content}}</p>
     {% endfor %}
     </ul>
 {% endblock %}
